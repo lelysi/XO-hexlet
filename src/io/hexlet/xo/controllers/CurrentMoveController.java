@@ -12,30 +12,28 @@ import java.awt.*;
 public class CurrentMoveController {
 
     public Figure currentMove(final Field field){
-        int countX = 0;
-        int countO = 0;
+        int countFigures = 0
+
         for (int x = 0; x < field.getSize(); x++) {
             for (int y = 0; y < field.getSize(); y++) {
                 try {
-                    switch (field.getFigure(new Point(x, y))) {
-                        case O:
-                            countO++;
-                            break;
-                        case X:
-                            countX++;
-                            break;
+                    if (field.getFigure(new Point(x, y)) != null) {
+                        countFigures++;
                     }
                 } catch (InvalidPointException e) {
                     e.printStackTrace();
                 }
             }
         }
-        if (countX == countO) {
-            return Figure.X;
-        }
-        if (countX + countO == field.getSize() * field.getSize()) {
+
+        if (countFigures == field.getSize() * field.getSize()) {
             return null;
         }
+
+        if (countFigures % 2 == 0) {
+            return Figure.X;
+        }
+
         return Figure.O;
     }
 }
