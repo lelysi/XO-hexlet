@@ -50,11 +50,12 @@ public class WinnerController {
         try {
             currentFigure = field.getFigure(currentPoint);
             nextFigure = field.getFigure(nextPoint);
+
+            if (currentFigure == null) return false;
+
         } catch (final InvalidPointException e) {
             return true;
         }
-
-        if (currentFigure == null) return false;
 
         if (currentFigure != nextFigure) return false;
 
