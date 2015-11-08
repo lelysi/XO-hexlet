@@ -11,19 +11,11 @@ import java.awt.*;
  */
 public class CurrentMoveController {
 
-    public Figure currentMove(final Field field){
+    public Figure currentMove(final Field field) {
         int countFigures = 0;
 
         for (int x = 0; x < field.getSize(); x++) {
-            for (int y = 0; y < field.getSize(); y++) {
-                try {
-                    if (field.getFigure(new Point(x, y)) != null) {
-                        countFigures++;
-                    }
-                } catch (InvalidPointException e) {
-                    e.printStackTrace();
-                }
-            }
+            countFigures = countFiguresInTheRow(field, x);
         }
 
         if (countFigures == field.getSize() * field.getSize()) {
@@ -36,4 +28,19 @@ public class CurrentMoveController {
 
         return Figure.O;
     }
+
+    private int countFiguresInTheRow(final Field field, final int row) {
+        int countFigures = 0;
+        for (int y = 0; y < field.getSize(); y++) {
+            try {
+                if (field.getFigure(new Point(row, y)) != null) {
+                    countFigures++;
+                }
+            } catch (InvalidPointException e) {
+                e.printStackTrace();
+            }
+        }
+        return countFigures;
+    }
+
 }
